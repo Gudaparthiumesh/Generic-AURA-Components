@@ -1,0 +1,134 @@
+<aura:component
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction"
+  access="global"
+>
+  <aura:attribute
+    name="options"
+    type="List"
+    default="[
+    {'label': 'Success', 'value': 'success'},
+    {'label': 'Base', 'value': 'base'},
+    {'label': 'Neutral', 'value': 'Neutral'},
+    {'label': 'Brand', 'value': 'brand'},
+    {'label': 'Destructive', 'value': 'destructive'}
+    ]"
+  />
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <aura:attribute name="genericVariantValue" type="String" default="success" />
+  <aura:attribute name="genericLabel" type="String" default="My Label" />
+  <aura:attribute name="genericTitle" type="String" default="My Title" />
+  <aura:attribute name="codeSnippet" type="String" default="" />
+  <aura:attribute name="disableValue" type="boolean" default="false" />
+
+  <div class="slds-box slds-theme_default expand" id="maindiv">
+    <span class="slds-text-heading_medium slds-align_absolute-center "
+      ><b>AURA COMPONENT</b>
+    </span>
+    <br />
+    <div class="slds-box slds-theme_default expand" id="maindiv">
+      <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-5">
+          <span style="height: 100%;">
+            <lightning:card
+              variant="Narrow"
+              title="Live View"
+              iconName="standard:forecasts"
+            >
+              <p class="slds-p-horizontal_small slds-p-top_x-small">
+                <lightning:button
+                  variant="{!v.genericVariantValue}"
+                  label="{!v.genericLabel}"
+                  title="{!v.genericTitle}"
+                  disabled="{!v.disableValue}"
+                />
+              </p>
+            </lightning:card>
+          </span>
+        </div>
+        <div class="slds-col slds-size_3-of-5">
+          <span>
+            <lightning:card
+              variant="Narrow"
+              title="Code View"
+              iconName="utility:table"
+            >
+              <p
+                class="slds-p-horizontal_small slds-text-heading_medium slds-p-top_x-small"
+              >
+                {!v.codeSnippet}
+              </p>
+            </lightning:card>
+          </span>
+        </div>
+        <div class="slds-col slds-size_1-of-5">
+          <span>
+            <lightning:card
+              variant="Narrow"
+              title="Attribute Options"
+              iconName="standard:record"
+            >
+              <aura:set attribute="actions">
+                <lightning:buttonIcon
+                  iconName="utility:loop"
+                  variant="border-filled"
+                  alternativeText="Reset"
+                  onclick="{!c.handleReset}"
+                />
+              </aura:set>
+              <p class="slds-p-horizontal_small">
+                <lightning:combobox
+                  name="variant"
+                  label="Variant"
+                  value="success"
+                  options="{! v.options }"
+                  onchange="{! c.handleOptionsChange }"
+                />
+              </p>
+              <p class="slds-p-horizontal_small">
+                <lightning:input
+                  name="labelName"
+                  aura:id="labelName"
+                  label="Label"
+                  value="{!v.genericLabel}"
+                  onchange="{!c.handleLabelInputChange}"
+                />
+              </p>
+              <p class="slds-p-horizontal_small">
+                <lightning:input
+                  name="titleName"
+                  aura:id="titleName"
+                  label="Title"
+                  value="{!v.genericTitle}"
+                  onchange="{!c.handleTitlelInputChange}"
+                />
+              </p>
+              <p class="slds-p-horizontal_small slds-p-top_x-small">
+                <div class="slds-form-element">
+                  <label class="slds-checkbox_toggle slds-grid">
+                    <span class="slds-form-element__label slds-m-bottom_none "
+                      >Disabled
+                    </span>
+                    <ui:inputCheckbox
+                      aura:id="chkbox"
+                      class="slds-input"
+                      change="{!c.handleCheckbox}"
+                    />
+                    <span
+                      id="toggle-desc"
+                      class="slds-checkbox_faux_container"
+                      aria-live="assertive"
+                    >
+                      <span class="slds-checkbox_faux"></span>
+                      <span class="slds-checkbox_on"></span>
+                      <span class="slds-checkbox_off"></span>
+                    </span>
+                  </label>
+                </div>
+              </p>
+            </lightning:card>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</aura:component>
